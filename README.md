@@ -4,29 +4,29 @@ An interactive, modular React component that renders a flock of animated birds f
 
 ## Installation
 
-''' bash
+``` bash
 
 npm install react-bird-flock
 
-'''
+```
 
 Or with yarn:
 
-'''bash
+```bash
 
 yarn add react-bird-flock
 
-'''
+```
 
 ## Quick Start
 
-'''tsx
+```tsx
 import BirdFlock from 'react-bird-flock';
 
 export default function App() {
   return <BirdFlock count={15} />;
 }
-'''
+```
 
 That's it! Move your mouse around and watch the birds follow your cursor. When you stop moving, they'll automatically perch around your cursor position.
 
@@ -44,7 +44,7 @@ That's it! Move your mouse around and watch the birds follow your cursor. When y
 
 ### Prop Examples
 
-'''tsx
+```tsx
 // Large flock with slower, more deliberate movement
 <BirdFlock
   count={50}
@@ -67,7 +67,7 @@ That's it! Move your mouse around and watch the birds follow your cursor. When y
   clusterRadius={50}
   clusterJitter={10}
 />
-'''
+```
 
 ## Features
 
@@ -98,7 +98,7 @@ The animation runs at 60fps using `requestAnimationFrame` for smooth, GPU-accele
 
 Build a custom bird manager with external state control:
 
-'''tsx
+```tsx
 import { useBirdFlock } from 'react-bird-flock';
 import { useState } from 'react';
 
@@ -121,13 +121,13 @@ function CustomFlockManager() {
     </div>
   );
 }
-'''
+```
 
 ### Individual Bird Components
 
 Use specific bird variants in custom layouts:
 
-'''tsx
+```tsx
 import { ClassicBird, SimpleBird, DetailedBird } from 'react-bird-flock';
 
 function BirdShowcase() {
@@ -148,13 +148,13 @@ function BirdShowcase() {
     </div>
   );
 }
-'''
+```
 
 ### Mouse Tracking Hook
 
 Access raw mouse tracking data for custom implementations:
 
-'''tsx
+```tsx
 import { useMouseTracking } from 'react-bird-flock';
 
 function CustomComponent() {
@@ -167,13 +167,13 @@ function CustomComponent() {
     </div>
   );
 }
-'''
+```
 
 ### Combining with Canvas
 
 Render birds on a canvas for advanced effects:
 
-'''tsx
+```tsx
 import BirdFlock from 'react-bird-flock';
 import { useEffect, useRef } from 'react';
 
@@ -190,13 +190,13 @@ function CanvasFlockOverlay() {
     </>
   );
 }
-'''
+```
 
 ### Performance Tuning
 
 For large flocks (50+ birds), optimize performance:
 
-'''tsx
+```tsx
 // Use smaller bird sizes and reduce cluster jitter
 <BirdFlock
   count={100}
@@ -210,13 +210,13 @@ For large flocks (50+ birds), optimize performance:
   count={50}
   topSpeed={3}
 />
-'''
+```
 
 ### Themed Integration
 
 Integrate with your design system's theme:
 
-'''tsx
+```tsx
 function ThemedBirdFlock() {
   return (
     <div style={{
@@ -236,7 +236,7 @@ function ThemedBirdFlock() {
     </div>
   );
 }
-'''
+```
 
 ## Bird Variant Comparison
 
