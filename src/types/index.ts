@@ -47,3 +47,26 @@ export interface BirdState {
   palette: Palette
   variant: "detailed" | "simple" | "classic"
 }
+
+/**
+ * Props for the BirdFlock component.
+ * @interface BirdFlockProps
+ * @property {number} [count=10] - Number of birds in the flock
+ * @property {number} [size=60] - Size of each bird in pixels
+ * @property {number} [zIndex=0] - CSS z-index for the flock container
+ * @property {number} [topSpeed=4] - Maximum speed birds can travel
+ * @property {number} [perchDelaySeconds=2] - Delay before birds perch on mouse cursor
+ * @property {number} [clusterRadius=85] - Radius of perching cluster around cursor
+ * @property {number} [clusterJitter=22] - Randomness in perching positions
+ * @property {Palette | Palette[]} [palettes] - Custom color palette(s) for birds. If array provided, palettes are randomly assigned
+ */
+export interface BirdFlockProps {
+  count?: number
+  size?: number
+  zIndex?: number
+  topSpeed?: number
+  perchDelaySeconds?: number
+  clusterRadius?: number
+  clusterJitter?: number
+  palettes?: Palette | Palette[]
+}

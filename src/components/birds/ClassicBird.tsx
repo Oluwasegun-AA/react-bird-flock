@@ -1,5 +1,5 @@
-import type React from "react"
-import type { BirdState } from "../../types"
+import type React from "react";
+import type { BirdState } from "../../types";
 
 /**
  * Props for ClassicBird component.
@@ -7,7 +7,7 @@ import type { BirdState } from "../../types"
  * @property {BirdState} bird - Bird state containing size, palette, and animation data
  */
 interface ClassicBirdProps {
-  bird: BirdState
+  bird: BirdState;
 }
 
 /**
@@ -20,7 +20,7 @@ interface ClassicBirdProps {
  * @returns {JSX.Element} SVG element rendering classic bird design
  */
 export const ClassicBird: React.FC<ClassicBirdProps> = ({ bird }: ClassicBirdProps) => {
-  const { dark, mid, light, accent } = bird.palette
+  const { dark, mid, light, accent } = bird.palette;
 
   return (
     <svg width={bird.size} height={bird.size} viewBox="0 0 50 50">
@@ -165,15 +165,19 @@ export const ClassicBird: React.FC<ClassicBirdProps> = ({ bird }: ClassicBirdPro
         </g>
 
         {/* Body */}
-        <ellipse cx="2" cy="0" rx="7" ry="5" fill={mid} />
+        <g className="body">
+          <ellipse cx="2" cy="0" rx="7" ry="5" fill={mid} />
+        </g>
         {/* Head */}
-        <circle cx="7" cy="0" r="3.5" fill={dark} />
-        {/* Eye */}
-        <circle cx="8" cy="-0.8" r="1.2" fill="white" />
-        <circle cx="8.3" cy="-1" r="0.6" fill="black" />
-        {/* Beak */}
-        <path d="M 9.5 0 L 12 -0.5 L 12 0.5 Z" fill={accent} />
+        <g className="head">
+          <circle cx="7" cy="0" r="3.5" fill={dark} />
+          {/* Eye */}
+          <circle cx="8" cy="-0.8" r="1.2" fill="white" />
+          <circle cx="8.3" cy="-1" r="0.6" fill="black" />
+          {/* Beak */}
+          <path d="M 9.5 0 L 12 -0.5 L 12 0.5 Z" fill={accent} />
+        </g>
       </g>
     </svg>
-  )
-}
+  );
+};
