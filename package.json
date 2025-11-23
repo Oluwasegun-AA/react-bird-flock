@@ -1,6 +1,6 @@
 {
   "name": "react-bird-flock",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Interactive bird flock animation component for React with intelligent flocking behavior and perching mechanics",
   "author": {
     "name": "Olúwáségun Adepoju",
@@ -41,7 +41,10 @@
     }
   },
   "files": [
-    "dist",
+    "dist/**/*.js",
+    "dist/**/*.cjs",
+    "dist/**/*.d.ts",
+    "!dist/**/*.map",
     "README.md",
     "LICENSE"
   ],
