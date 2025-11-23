@@ -1,21 +1,37 @@
 # React Bird Flock
 
-An interactive, modular React component that renders a flock of animated birds flocking in your background/forground with realistic flocking behavior. Ships with three beautiful bird variants (Classic, Simple, and Detailed) and supports extensive customization for behavior and appearance.
+An interactive React component that renders a flock of animated birds with realistic flocking behavior and intelligent perching mechanics. Birds smoothly fly around your background and automatically cluster around your cursor when idle, creating an engaging and organic visual effect.
+
+Ships with three beautiful SVG bird variants (Classic, Simple, and Detailed) and supports extensive customization for both behavior and appearance.
+
+## Features
+
+- 🐦 **Three SVG Bird Variants**: Classic (detailed), Simple (minimalist), and Detailed (ornate) designs
+- 🎯 **Smart Perching Behavior**: Birds automatically cluster around your cursor when idle
+- 🖱️ **Smooth Cursor Seeking**: Natural movement with velocity-based physics
+- 📱 **Fully Responsive**: Works seamlessly on desktop, tablet, and touch devices
+- 🎨 **Customizable Colors**: Use built-in palettes or provide your own
+- 🔧 **Modular Architecture**: Use individual components, hooks, or the complete BirdFlock
+- 📦 **Zero Dependencies**: Lightweight implementation with React as the only peer dependency
+- ⚡ **Performance Optimized**: 60fps animations using requestAnimationFrame
+- 🎛️ **Highly Configurable**: Control speed, clustering, perching timing, and more
 
 ## Installation
 
-``` bash
-
+```bash
 npm install react-bird-flock
-
 ```
 
 Or with yarn:
 
 ```bash
-
 yarn add react-bird-flock
+```
 
+Or with pnpm:
+
+```bash
+pnpm add react-bird-flock
 ```
 
 ## Quick Start
@@ -24,36 +40,129 @@ yarn add react-bird-flock
 import BirdFlock from 'react-bird-flock';
 
 export default function App() {
-  return <BirdFlock count={15} />;
+	return (
+		<>
+			<BirdFlock count={15} />
+			<main>
+				<h1>Your Content Here</h1>
+			</main>
+		</>
+	);
 }
 ```
 
-That's it! Move your mouse around and watch the birds follow your cursor. When you stop moving, they'll automatically perch around your cursor position.
+That's it! Move your mouse around and watch the birds fly realistically in your background. When you stop moving, they'll automatically perch around your cursor position in organic clusters.
 
-## Props
+## API Reference
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `count` | number | 10 | Number of birds to render in the flock |
-| `size` | number | 60 | Size of each bird in pixels (width and height) |
-| `zIndex` | number | 0 | Z-index stacking context of the flock container |
-| `topSpeed` | number | 4 | Maximum velocity magnitude of flying birds (pixels per frame) |
-| `perchDelaySeconds` | number | 2 | Time in seconds before birds start perching when mouse is idle |
-| `clusterRadius` | number | 85 | Radius in pixels defining the perching cluster around cursor position |
-| `clusterJitter` | number | 22 | Randomness in pixels added to perching positions for natural variation |
+### BirdFlock Component Props
 
-### Prop Examples
+| Prop                | Type                   | Default    | Description                                                                          |
+| ------------------- | ---------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| `count`             | `number`               | `10`       | Number of birds to render in the flock                                               |
+| `size`              | `number`               | `60`       | Size of each bird in pixels (width and height)                                       |
+| `zIndex`            | `number`               | `0`        | CSS z-index for the flock container layer                                            |
+| `topSpeed`          | `number`               | `4`        | Maximum velocity birds can travel (pixels per frame at 60fps)                        |
+| `perchDelaySeconds` | `number`               | `2`        | Time in seconds before birds start perching when mouse is idle                       |
+| `clusterRadius`     | `number`               | `85`       | Radius in pixels defining the perching cluster around cursor                         |
+| `clusterJitter`     | `number`               | `22`       | Random offset in pixels added to perching positions for natural variation            |
+| `palettes`          | `Palette \| Palette[]` | `PALETTES` | Custom color palette(s). Single palette applies to all birds, array randomly assigns |
+
+### Palette Type
+
+```typescript
+interface Palette {
+	dark: string; // Primary dark color for bird bodies
+	mid: string; // Mid-tone color for wings
+	light: string; // Light color for highlights
+	accent: string; // Bright accent for beak
+}
+```
+
+### BirdState Type
+
+```typescript
+interface BirdState {
+	x: number; // Current X position
+	y: number; // Current Y position
+	targetX: number; // Target X coordinate
+	targetY: number; // Target Y coordinate
+	velocityX: number; // Horizontal velocity
+	velocityY: number; // Vertical velocity
+	isPerched: boolean; // Perched status
+	rotation: number; // Rotation angle in degrees
+	zIndex: number; // Stacking order
+	size: number; // Bird size in pixels
+	mode: 'free' | 'perching' | 'perched'; // Current behavior mode
+	wingPhase: number; // Wing animation phase (0-100)
+	palette: Palette; // Color palette
+	variant: 'classic' | 'simple' | 'detailed'; // SVG variant
+}
+```
+
+## Usage Examples
+
+### Basic Usage with Custom Props
 
 ```tsx
-// Large flock with slower, more deliberate movement
+import BirdFlock from 'react-bird-flock';
+
+function App() {
+	return (
+		<BirdFlock
+			count={20}
+			size={50}
+			topSpeed={5}
+			perchDelaySeconds={1.5}
+			clusterRadius={100}
+			clusterJitter={15}
+		/>
+	);
+}
+```
+
+### Custom Color Palettes
+
+```tsx
+import BirdFlock from 'react-bird-flock';
+
+// Single palette for all birds
+const customPalette = {
+	dark: '#1a1a2e',
+	mid: '#16213e',
+	light: '#0f3460',
+	accent: '#e94560',
+};
+
+function ThemedFlock() {
+	return <BirdFlock count={10} palettes={customPalette} />;
+}
+
+// Multiple palettes (randomly assigned)
+const palettes = [
+	{ dark: '#2d3436', mid: '#636e72', light: '#b2bec3', accent: '#fdcb6e' },
+	{ dark: '#1e3a8a', mid: '#3b82f6', light: '#93c5fd', accent: '#fbbf24' },
+	{ dark: '#7f1d1d', mid: '#dc2626', light: '#fca5a5', accent: '#fb923c' },
+];
+
+function ColorfulFlock() {
+	return <BirdFlock count={15} palettes={palettes} />;
+}
+```
+
+### Performance Configurations
+
+```tsx
+// Large flock optimized for performance
 <BirdFlock
   count={50}
-  size={40}
-  topSpeed={2}
+  size={30}
+  topSpeed={3}
+  clusterJitter={5}
   perchDelaySeconds={3}
 />
 
-// Small, zippy flock that perches quickly
+// Small premium flock with high detail
 <BirdFlock
   count={5}
   size={80}
@@ -61,223 +170,301 @@ That's it! Move your mouse around and watch the birds follow your cursor. When y
   perchDelaySeconds={0.5}
 />
 
-// Tight clustering behavior
+// Tight clustering for compact effect
 <BirdFlock
   count={20}
-  clusterRadius={50}
-  clusterJitter={10}
+  clusterRadius={40}
+  clusterJitter={8}
 />
 ```
 
-## Features
+### Layered with Content
 
-- **Three bird variants**: Choose from Classic (detailed), Simple (minimalist), and Detailed (ornate) SVG designs
-- **Smart perching behavior**: Birds automatically perch around your cursor when idle, creating natural resting clusters
-- **Cursor following**: Smooth animation as birds track and follow mouse movement
-- **Responsive**: Works seamlessly on desktop, tablet, and touch devices
-- **Modular architecture**: Use individual components, hooks, or the complete BirdFlock
-- **Fully typed**: Complete TypeScript support with comprehensive types
-- **Zero dependencies**: Lightweight implementation with no external package dependencies
-- **Performance optimized**: Uses refs for fast-changing values to prevent unnecessary re-renders
-- **Customizable timing**: Control perching delay and animation speed
+```tsx
+function LandingPage() {
+	return (
+		<>
+			{/* Birds in background */}
+			<BirdFlock count={12} zIndex={0} />
 
-## How It Works
+			{/* Your content */}
+			<main style={{ position: 'relative', zIndex: 1 }}>
+				<h1>Welcome</h1>
+				<p>Your content here</p>
+			</main>
 
-The birds use a simple but effective flocking algorithm:
-
-1. **Tracking Phase**: All birds track your cursor position and move toward it
-2. **Idle Detection**: When your mouse hasn't moved for `perchDelaySeconds`, birds enter perching mode
-3. **Perching**: Birds settle into random positions within a `clusterRadius` around your cursor with `clusterJitter` for natural variation
-4. **Resume**: Mouse movement instantly breaks perching and birds resume following
-
-The animation runs at 60fps using `requestAnimationFrame` for smooth, GPU-accelerated motion.
+			{/* Birds in foreground */}
+			<BirdFlock count={8} zIndex={2} size={40} />
+		</>
+	);
+}
+```
 
 ## Advanced Usage
 
-### Custom Flock Manager
+### Using Individual Hooks
 
-Build a custom bird manager with external state control:
+Access lower-level hooks for custom implementations:
 
 ```tsx
-import { useBirdFlock } from 'react-bird-flock';
-import { useState } from 'react';
+import { useMouseTracking, useBirdFlock } from 'react-bird-flock';
+import { Bird } from 'react-bird-flock';
 
 function CustomFlockManager() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const { birds, setBirds } = useBirdFlock({
-    count: 15,
-    mousePosition: mousePos,
-    perchDelaySeconds: 2.5,
-  });
+	const { mousePosition, isMouseMoving, hasActualMouse } = useMouseTracking();
 
-  return (
-    <div
-      onMouseMove={(e) => setMousePos({ x: e.clientX, y: e.clientY })}
-      style={{ width: '100%', height: '100vh' }}
-    >
-      {birds.map((bird) => (
-        <Bird key={bird.id} bird={bird} size={60} />
-      ))}
-    </div>
-  );
+	const birds = useBirdFlock({
+		initialBirds: [], // Provide initial bird states
+		mousePosition,
+		isMouseMoving,
+		hasActualMouse,
+		topSpeed: 4,
+		perchDelaySeconds: 2,
+		clusterRadius: 85,
+		clusterJitter: 22,
+	});
+
+	return (
+		<div style={{ position: 'fixed', inset: 0 }}>
+			{birds.map((bird, i) => (
+				<Bird key={i} bird={bird} />
+			))}
+		</div>
+	);
 }
 ```
 
-### Individual Bird Components
-
-Use specific bird variants in custom layouts:
+### Rendering Specific Bird Variants
 
 ```tsx
 import { ClassicBird, SimpleBird, DetailedBird } from 'react-bird-flock';
+import type { BirdState } from 'react-bird-flock';
 
 function BirdShowcase() {
-  const mockBird = {
-    id: 1,
-    x: 100,
-    y: 100,
-    vx: 0,
-    vy: 0,
-    isPerched: false,
-  };
+	const mockBird: BirdState = {
+		x: 100,
+		y: 100,
+		targetX: 100,
+		targetY: 100,
+		velocityX: 0,
+		velocityY: 0,
+		isPerched: false,
+		rotation: 0,
+		zIndex: 1,
+		size: 60,
+		mode: 'free',
+		wingPhase: 50,
+		palette: {
+			dark: '#1F2937',
+			mid: '#374151',
+			light: '#9CA3AF',
+			accent: '#F6AD55',
+		},
+		variant: 'classic',
+	};
 
-  return (
-    <div style={{ display: 'flex', gap: '20px' }}>
-      <ClassicBird bird={mockBird} size={80} />
-      <SimpleBird bird={mockBird} size={80} />
-      <DetailedBird bird={mockBird} size={80} />
-    </div>
-  );
+	return (
+		<div style={{ display: 'flex', gap: '20px' }}>
+			<ClassicBird bird={mockBird} />
+			<SimpleBird bird={mockBird} />
+			<DetailedBird bird={mockBird} />
+		</div>
+	);
 }
 ```
 
-### Mouse Tracking Hook
-
-Access raw mouse tracking data for custom implementations:
+### Initialize Birds Utility
 
 ```tsx
-import { useMouseTracking } from 'react-bird-flock';
+import { initializeBirds, PALETTES } from 'react-bird-flock';
 
-function CustomComponent() {
-  const { mousePosition, isMouseMoving } = useMouseTracking();
+function CustomInitialization() {
+	const birds = initializeBirds({
+		count: 10,
+		size: 60,
+		zIndex: 1,
+		palettes: PALETTES, // or custom palette(s)
+	});
 
-  return (
-    <div>
-      <p>Mouse at: {mousePosition.x}, {mousePosition.y}</p>
-      <p>Status: {isMouseMoving ? 'Moving' : 'Idle'}</p>
-    </div>
-  );
+	// Use birds state however you need
+	return <div>{/* Custom rendering */}</div>;
 }
 ```
 
-### Combining with Canvas
+## How It Works
 
-Render birds on a canvas for advanced effects:
+The bird flock uses a multi-phase animation system:
 
-```tsx
-import BirdFlock from 'react-bird-flock';
-import { useEffect, useRef } from 'react';
+### 1. **Free Mode** (Default)
 
-function CanvasFlockOverlay() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+- Birds fly freely around the screen
+- Each bird has a random target position
+- When near target or randomly, birds pick a new destination
+- Movement is smoothed with velocity-based physics
 
-  return (
-    <>
-      <BirdFlock count={20} size={50} />
-      <canvas
-        ref={canvasRef}
-        style={{ position: 'absolute', top: 0, left: 0 }}
-      />
-    </>
-  );
-}
-```
+### 2. **Mouse Tracking**
 
-### Performance Tuning
+- Birds continuously track cursor position
+- `useMouseTracking` hook detects mouse movement and device type
+- Updates at 60fps for smooth following behavior
 
-For large flocks (50+ birds), optimize performance:
+### 3. **Perching Phase**
 
-```tsx
-// Use smaller bird sizes and reduce cluster jitter
-<BirdFlock
-  count={100}
-  size={30}
-  clusterJitter={8}
-  perchDelaySeconds={3}
-/>
+- After `perchDelaySeconds` of mouse being idle, perching begins
+- Birds are "recruited" in randomized waves (not all at once)
+- Each wave recruits 1-5 birds with delays between 280-1100ms
+- Creates organic, natural-looking clustering behavior
 
-// Or render on odd scroll events to reduce frame rate
-<BirdFlock
-  count={50}
-  topSpeed={3}
-/>
-```
+### 4. **Perched Mode**
 
-### Themed Integration
+- Birds settle at positions within `clusterRadius` of cursor
+- `clusterJitter` adds random offset for natural variation
+- Birds scale down slightly (0.85x) when perched
+- Smooth CSS transitions for perching animation
 
-Integrate with your design system's theme:
+### 5. **Resume**
 
-```tsx
-function ThemedBirdFlock() {
-  return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      pointerEvents: 'none',
-      zIndex: 10,
-    }}>
-      <BirdFlock
-        count={12}
-        size={50}
-        zIndex={10}
-      />
-    </div>
-  );
-}
-```
+- Any mouse movement instantly breaks perching
+- All birds return to "free" mode
+- Cycle repeats when mouse stops again
+
+The animation runs at 60fps using `requestAnimationFrame` for smooth, GPU-accelerated motion with minimal CPU overhead.
 
 ## Bird Variant Comparison
 
-| Variant | Style | Use Case |
-|---------|-------|----------|
-| **Classic** | Detailed, realistic wings | Hero sections, premium feels |
-| **Simple** | Minimalist, flat design | Modern UIs, backgrounds |
-| **Detailed** | Ornate, decorative | Landing pages, artistic sites |
+| Variant      | Style                                  | Performance | Best For                         |
+| ------------ | -------------------------------------- | ----------- | -------------------------------- |
+| **Classic**  | Detailed with realistic wing animation | Medium      | Hero sections, premium branding  |
+| **Simple**   | Minimalist, flat design                | High        | Large flocks (50+), backgrounds  |
+| **Detailed** | Ornate with enhanced feather detail    | Lower       | Small flocks, artistic showcases |
+
+Variants are randomly assigned during initialization. All variants support the same color customization and animation features.
+
+## Exports
+
+```typescript
+// Components
+export { BirdFlock } from 'react-bird-flock'; // Main component
+export { Bird } from 'react-bird-flock'; // Individual bird wrapper
+export { ClassicBird } from 'react-bird-flock'; // Classic variant
+export { SimpleBird } from 'react-bird-flock'; // Simple variant
+export { DetailedBird } from 'react-bird-flock'; // Detailed variant
+
+// Hooks
+export { useMouseTracking } from 'react-bird-flock'; // Mouse tracking hook
+export { useBirdFlock } from 'react-bird-flock'; // Main flock logic hook
+
+// Utilities
+export { initializeBirds } from 'react-bird-flock'; // Initialize bird states
+export { PALETTES } from 'react-bird-flock'; // Default color palettes
+
+// Types
+export type { BirdState, Palette } from 'react-bird-flock';
+```
+
+## Performance Tips
+
+### For Large Flocks (50+ birds)
+
+```tsx
+<BirdFlock
+	count={100}
+	size={25} // Smaller birds
+	topSpeed={2.5} // Slower movement
+	clusterJitter={5} // Less jitter calculation
+	perchDelaySeconds={3} // Less frequent mode changes
+/>
+```
+
+### Optimize Rendering
+
+- Use `zIndex` to layer birds behind content
+- Consider reducing `count` on mobile devices
+- Simple variant performs best for large flocks
+- `clusterJitter={0}` eliminates randomness calculations
+
+### Memory Management
+
+- Component automatically cleans up animation frames on unmount
+- No memory leaks from timers or event listeners
+- Refs used for frequently-updating values to prevent re-renders
 
 ## Troubleshooting
 
-**Birds aren't moving?**
-- Check that your component is mounted and visible
-- Ensure `count` is greater than 0
-- Verify mouse events are being fired (open DevTools)
+### Birds aren't appearing
 
-**Performance issues with large flocks?**
-- Reduce `count` or increase `size` to use fewer birds
-- Lower `topSpeed` for smoother animations
-- Try `clusterJitter={0}` for less calculation
+- Ensure component is mounted and visible
+- Check that `count > 0`
+- Verify no CSS is hiding the fixed-position container
+- Check z-index layering with other content
 
-**Birds stuck in place?**
-- Increase `perchDelaySeconds` to give birds time to follow
-- Check that `topSpeed` is greater than 0
+### Birds aren't moving
+
+- Ensure `topSpeed > 0`
+- Check browser console for errors
+- Verify mouse events are firing (test with `useMouseTracking`)
+
+### Performance issues
+
+- Reduce `count` for fewer birds
+- Increase `size` with fewer birds instead of many small ones
+- Use `Simple` variant for better performance
+- Lower `topSpeed` for smoother animation
+- Reduce `clusterJitter` to minimize calculations
+
+### Birds perch too quickly/slowly
+
+- Adjust `perchDelaySeconds` (higher = longer delay)
+- Default is 2 seconds - try 1-5 range
+- Set to 0.5 for very responsive perching
+
+### Clustering too tight/loose
+
+- Adjust `clusterRadius` (higher = more spread out)
+- Adjust `clusterJitter` (higher = more randomness)
+- Default: `clusterRadius={85}`, `clusterJitter={22}`
 
 ## Browser Support
 
-- Chrome/Edge: ✅ Full support
-- Firefox: ✅ Full support
-- Safari: ✅ Full support (iOS 13+)
+| Browser        | Support                   |
+| -------------- | ------------------------- |
+| Chrome/Edge    | ✅ Full support (v90+)    |
+| Firefox        | ✅ Full support (v88+)    |
+| Safari         | ✅ Full support (v14+)    |
+| iOS Safari     | ✅ Full support (iOS 13+) |
+| Android Chrome | ✅ Full support           |
+
+Requires support for:
+
+- `requestAnimationFrame`
+- CSS `transform` and `transition`
+- SVG rendering
+- ES2020+ features
+
+## Testing
+
+```bash
+# Run tests
+npm test
+
+# Watch mode
+npm run test:watch
+
+# With UI
+npm run test:ui
+```
 
 ## Contributing
 
-Found a bug or have an idea? We'd love to hear from you! Open an issue or submit a PR on GitHub.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
+MIT License - see LICENSE file for details
 
-- **[MIT license]()**
-- With ❤️ from <a href="https://www.linkedin.com/in/adepoju" target="_blank">Olúwáségun.</a>
+## Author
+
+Created with ❤️ by [Olúwáségun Adepoju](https://www.linkedin.com/in/adepoju)
 
 ---
 

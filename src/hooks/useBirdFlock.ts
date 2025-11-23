@@ -136,6 +136,7 @@ export const useBirdFlock = ({
 
     const idle: boolean = hasActualMouseRef.current && !isMouseMovingRef.current
 
+
     if (idle) {
       if (!perchCycleActiveRef.current) {
         perchCycleActiveRef.current = true
@@ -144,8 +145,6 @@ export const useBirdFlock = ({
         recruitmentTimeoutsRef.current.push(id)
       }
     } else {
-      if (perchCycleActiveRef.current) {
-      }
       perchCycleActiveRef.current = false
       clearRecruitmentTimers()
       unrecruitedRef.current = []

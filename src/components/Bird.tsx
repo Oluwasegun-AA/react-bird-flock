@@ -3,7 +3,7 @@ import type { BirdState } from "../types"
 import { ClassicBird } from "./birds/ClassicBird"
 import { SimpleBird } from "./birds/SimpleBird"
 import { DetailedBird } from "./birds/DetailedBird"
-import type { JSX } from "@emotion/react" // Added import for JSX
+import { JSX } from 'react';
 
 /**
  * Props for the Bird component.

@@ -3,22 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
-    "dev": "next dev",
+    "build": "tsc && vite build",
+    "dev": "vite",
     "lint": "eslint .",
-    "start": "next start"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.10.0",
-    "next": "16.0.0",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
-    "react-hook-form": "^7.60.0"
+    "react": "^19.2.0",
+    "react-dom": "latest",
+    "tsx": "latest",
+    "yaml": "latest"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5"
+    "@vitejs/plugin-react": "^4.3.0",
+    "@vitest/ui": "^4.0.10",
+    "autoprefixer": "^10.4.20",
+    "happy-dom": "^20.0.10",
+    "typescript": "^5",
+    "vite": "^5.4.0",
+    "vitest": "^4.0.10"
   }
 }
