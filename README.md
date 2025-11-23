@@ -4,7 +4,23 @@ An interactive React component that renders a flock of animated birds with reali
 
 Ships with three beautiful SVG bird variants (Classic, Simple, and Detailed) and supports extensive customization for both behavior and appearance.
 
-![react-bird-flock](https://github.com/user-attachments/assets/4fd8d287-b600-4d00-879e-1ad79415eea9)
+
+<div align="center">
+  <video 
+    src="https://github.com/user-attachments/assets/657aae91-9e8c-432a-9ca8-276d82baf457"
+    autoplay
+    loop
+    muted
+    playsinline
+    style="max-width: 100%; border-radius: 8px;"
+  >
+  </video>
+</div>
+
+
+
+
+
 
 ## Features
 
