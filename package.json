@@ -1,7 +1,51 @@
 {
   "name": "react-bird-flock",
   "version": "0.1.0",
-  "private": true,
+  "description": "Interactive bird flock animation component for React with intelligent flocking behavior and perching mechanics",
+  "author": {
+    "name": "Olúwáségun Adepoju",
+    "url": "https://segunadepoju.com/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Oluwasegun-AA/react-bird-flock.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Oluwasegun-AA/react-bird-flock/issues"
+  },
+  "homepage": "https://github.com/Oluwasegun-AA/react-bird-flock#readme",
+  "keywords": [
+    "react",
+    "animation",
+    "birds",
+    "flock",
+    "flocking",
+    "perching",
+    "cursor",
+    "mouse",
+    "interactive",
+    "component",
+    "svg",
+    "typescript"
+  ],
+  "type": "module",
+  "main": "./dist/react-bird-flock.umd.cjs",
+  "module": "./dist/react-bird-flock.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/react-bird-flock.js",
+      "require": "./dist/react-bird-flock.umd.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
@@ -9,27 +53,25 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest --watch",
-    "test:ui": "vitest --ui"
+    "prepublishOnly": "npm run test && npm run build"
   },
-  "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "latest",
-    "tsx": "latest",
-    "yaml": "latest"
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4.3.0",
-    "@vitest/ui": "^4.0.10",
-    "autoprefixer": "^10.4.20",
     "happy-dom": "^20.0.10",
+    "react": "^19.2.0",
+    "react-dom": "latest",
     "typescript": "^5",
     "vite": "^5.4.0",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.10"
   }
 }

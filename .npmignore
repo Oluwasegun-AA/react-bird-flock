@@ -1,0 +1,42 @@
+# Source files
+src/
+*.tsx
+*.ts
+!*.d.ts
+
+# Config files
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+vitest.config.ts
+.eslintrc.cjs
+
+# Development files
+node_modules/
+.git/
+.gitignore
+.DS_Store
+
+# Test files
+**/__tests__/
+**/*.test.ts
+**/*.test.tsx
+**/test/
+
+# Documentation that's not needed
+TEST_SETUP.md
+
+# Build artifacts not needed
+*.log
+*.tgz
+
+# IDE
+.vscode/
+.idea/
+
+# Demo/dev app
+index.html
+public/
+src/main.tsx
+src/App.tsx
+src/index.css
