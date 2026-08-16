@@ -3,6 +3,11 @@
 An interactive React component that renders a flock of animated birds with realistic flocking behavior and intelligent perching mechanics. Birds smoothly fly around your background and automatically cluster around your cursor when idle, creating an engaging and organic visual effect.
 
 Ships with three beautiful SVG bird variants (Classic, Simple, and Detailed) and supports extensive customization for both behavior and appearance.
+<pre>
+Full Documentation   👉🏻  <a href="https://segunadepoju.com/react-bird-flock">Here</a>
+</pre>
+
+
 
 <div align="center">
   <video 
